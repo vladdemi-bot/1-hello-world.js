@@ -1,0 +1,82 @@
+1. завдання
+function factorial(n) {
+  if (n === 0 || n === 1) {
+    return 1;
+  }
+  return n * factorial(n - 1);
+}
+
+console.log(factorial(5));
+console.log(factorial(0));
+console.log(factorial(1));
+
+2. завдання
+function fibonacci(n) {
+  if (n === 0) {
+    return 0;
+  }
+  if (n === 1) {
+    return 1;
+  }
+  return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+console.log(fibonacci(6));
+console.log(fibonacci(0));
+console.log(fibonacci(1));
+
+3. завдання 
+function sumArray(arr) {
+  if (arr.length === 0) {
+    return 0;
+  }
+  return arr[0] + sumArray(arr.slice(1));
+}
+
+console.log(sumArray([1, 2, 3, 4, 5]));
+console.log(sumArray([0, 0, 0]));
+console.log(sumArray([10, -10]));
+
+4. завдання
+function isPalindrome(str) {
+  if (str.length <= 1) {
+    return true;
+  }
+  if (str[0] !== str[str.length - 1]) {
+    return false;
+  }
+  return isPalindrome(str.slice(1, -1));
+}
+
+console.log(isPalindrome('racecar'));
+console.log(isPalindrome('hello'));
+console.log(isPalindrome('madam'));
+console.log(isPalindrome(''));
+console.log(isPalindrome('a'));
+
+5. завдання 
+function findDeepest(obj) {
+  function helper(obj, depth) {
+    if (typeof obj !== 'object' || obj === null) {
+      return { value: obj, depth: depth };
+    }
+
+    let deepest = { value: null, depth: -1 };
+    for (let key in obj) {
+      let result = helper(obj[key], depth + 1);
+      if (result.depth > deepest.depth) {
+        deepest = result;
+      }
+    }
+    return deepest;
+  }
+
+  const result = helper(obj, 0);
+  return result.value;
+}
+
+console.log(findDeepest({ a: 1, b: { c: { d: 4, e: { f: 5 } } } }));
+console.log(findDeepest({ a: { b: 1 }, c: 2 }));
+console.log(findDeepest({ a: null }));
+console.log(findDeepest({}));
+console.log(findDeepest({ a: { b: { c: { d: { e: { f: {} } } } } } }));
