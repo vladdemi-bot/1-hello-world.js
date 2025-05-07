@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="1.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -12,22 +12,44 @@
 <body>
     <div class="container">
         
-        <img src="Vivo_logo_2019.svg.png" alt="Logo" class="logo">  
-        <h1>Welcome to vivo</h1>
+        <img src="Vivo_logo.png" alt="Logo" class="logo">  
+        <h1>Welcome to Steam</h1>
         <h2>Sign in</h2>
         <form>
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>
+            <label id="email" for="email">Email</label>
+            <input type="email" id="log-email" name="email" required>
             
-            <label for="password">Password</label>
+            <label password for="password">Password</label>
             <div class="input-with-icon">
-                <input type="password" id="password" name="password" required>
-                <img src="Show.png" alt="eye" class="eye">  
+                <input type="password" id="log-pass" name="password" required>
+                <img src="opened-eye.png" alt="eye" class="eye">  
             </div>
             
-            <button type="submit">Sign in</button>
+            <button id="sign-in-button">Sign-in</button>
         </form>
         <p>Don't have an account? <a href="sign-up.html">Sign up</a></p> 
     </div>
+    <script src="1.js"></script>
+    <script>
+      const button = document.getElementById('sign-in-button');
+      async function login(e) {
+      e.preventDefault();
+      const email = document.getElementById('log-email').value;
+      const password = document.getElementById('log-pass').value;
+      const res = await fetch('http://localhost:3000/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        localStorage.setItem('token', data.token);
+        alert('Успішний вхід!');
+      } else {
+        alert(data.message);
+      }
+    }
+    button.addEventListener('click', login)
+  </script>
 </body>
 </html>
